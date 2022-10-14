@@ -10,9 +10,9 @@ public class Deck {
 
     public List<Card> createNewDeck() {
         List<Card> newDeck = new ArrayList<>();
-        String[] suits = new String[] {"Clubs","Spades","Hearts","Diamonds"};
-        for (String suit : suits) {
-            for(int i=0;i<13;i++){
+        char[] suits = new char[] { '\u2660', '\u2666', '\u2663', '\u2665' };
+        for (char suit : suits) {
+            for(int i=1;i<14;i++){
                 newDeck.add(new Card(i,suit));
             }
         }
