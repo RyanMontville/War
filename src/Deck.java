@@ -3,25 +3,41 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private List<Card> deckOfCards = new ArrayList<Card>();
-    public Deck() {
-        this.deckOfCards = createNewDeck();
+    private List<Card> deckOfCards = new ArrayList<>();
+    private List<Card> handOne = new ArrayList<>();
+    private List<Card> handTwo = new ArrayList<>();
+
+    public Deck(List<Card> cards) {
+        this.deckOfCards = cards;
+
     }
 
-    public List<Card> createNewDeck() {
-        List<Card> newDeck = new ArrayList<>();
-        char[] suits = new char[] { '\u2660', '\u2666', '\u2663', '\u2665' };
-        for (char suit : suits) {
-            for(int i=1;i<14;i++){
-                newDeck.add(new Card(i,suit));
-            }
-        }
-        return newDeck;
-    }
     public void shuffleDeck() {
         Collections.shuffle(deckOfCards);
     }
-    public List<Card> getDeckOfCards() {
+
+    public List<Card> getListOfCards() {
         return this.deckOfCards;
+    }
+
+    public void splitDeck() {
+        Collections.shuffle(deckOfCards);
+        for (int i=0;i<this.deckOfCards.size();i+=2){
+            Card card = this.deckOfCards.get(i);
+            this.handOne.add(card);
+        }
+        for (int i=1;i<this.deckOfCards.size();i+=2){
+            Card card = this.deckOfCards.get(i);
+            this.handTwo.add(card);
+        }
+        this.deckOfCards.removeAll(this.deckOfCards);
+    }
+
+    public List<Card> getHandOne() {
+        return handOne;
+    }
+
+    public List<Card> getHandTwo() {
+        return handTwo;
     }
 }
