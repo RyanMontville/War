@@ -40,4 +40,14 @@ public class Deck {
     public List<Card> getHandTwo() {
         return handTwo;
     }
+
+    public Card drawOneCard() {
+        Card drawnCard = this.deckOfCards.get(0);
+        this.deckOfCards.remove(drawnCard);
+        return drawnCard;
+    }
+
+    public void addCardToDeck(Card card) {
+        this.deckOfCards.add(card);
+    }
 }
