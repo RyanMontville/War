@@ -23,3 +23,9 @@ of cards in each hand didn't change much, and my laptop's fan started revving up
 <br>-Added method to check to see who played the higher cards and takes all cards played from play deck, adds to winners discard deck
 <br>-When a player runs out of cards to play, it takes the cards from their discard pile, adds them back to their deck, and shuffles their deck.
 <br>-Still need to code the methods to handle when a war takes place.
+
+## V 1.0
+The program is a mostly fully functional game of war.
+-Added the method to call when a war takes place.
+-Cleaned up what is printed to the console.
+-Things to still add: web interface, mode were the computer plays out the entire game without user input adn reports how many round it took.

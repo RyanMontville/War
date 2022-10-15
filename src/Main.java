@@ -11,7 +11,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         game.giveCardsToPlayers();
         int count = 0;
-        int wars = 0;
         System.out.println(game.getCardsCurrentlyPlayed().getListOfCards().size());
         while (game.getUserDeck().getListOfCards().size() > 0 || game.getUserDiscard().getListOfCards().size() > 0) {
             if (game.getUserDeck().getListOfCards().size() == 0 && game.getUserDiscard().getListOfCards().size() == 0) {
@@ -21,8 +20,8 @@ public class Main {
                 break;
             }
             System.out.println("");
-            System.out.println("User deck has " + game.getUserDeck().getListOfCards().size() + ". Computer deck has " + game.getComputerDeck().getListOfCards().size());
-            System.out.println("User hand has " + game.getUserDiscard().getListOfCards().size() + ". Computer hand has " + game.getComputerDiscard().getListOfCards().size());
+            System.out.print("You have " + (game.getUserDeck().getListOfCards().size() + game.getUserDiscard().getListOfCards().size()) + " cards total. ");
+            System.out.println("The computer has " + (game.getComputerDeck().getListOfCards().size() + game.getComputerDiscard().getListOfCards().size()) + " cards total.");
             System.out.print("(D)raw a card or (G)ive up and end the game: ");
             char response = scanner.next().charAt(0);
             if (response =='G' || response == 'g') {
@@ -40,7 +39,7 @@ public class Main {
 
             count++;
         }
-        System.out.println("Game over. You gave up after " + count + " rounds. " + wars + " wars happened.");
+        System.out.println("Game over. You played " + count + " rounds. " + game.getWarCount() + " wars happened.");
     }
 
 }

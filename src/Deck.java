@@ -47,6 +47,15 @@ public class Deck {
         return drawnCard;
     }
 
+    public List<Card> drawCardsForWar() {
+        List<Card> cardsForWar = new ArrayList<>();
+        for (int i=0;i<4;i++) {
+            Card card = this.deckOfCards.get(0);
+            cardsForWar.add(card);
+        }
+        return cardsForWar;
+    }
+
     public void addCardToDeck(Card card) {
         this.deckOfCards.add(card);
     }
