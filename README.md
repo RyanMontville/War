@@ -1,14 +1,14 @@
 # War
 
 
-##V 0.1 
+## V 0.1 
 -Initial code upload. Created the classes for Card and Deck.
 
-##V 0.2
+## V 0.2
 -Trying to figure out which classes should handle the differnet functions of the game like splitting the deck into 2 for the user and computer.
 -Created the Game class, moved some of the methods around, created a user and a computer hand within the game method.
 
-##V 0.3
+## V 0.3
 -Still figuring out which classes should handle different parts of the game.
 -Created methods to draw 1 card and to take the cards after a player wins the turn.
 -Coded some test code in the Main method to have the program play the game on its own, but since war can be super long, I limited it to 500 turns
