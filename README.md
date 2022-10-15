@@ -10,8 +10,7 @@
 
 ## V 0.3
 -Still figuring out which classes should handle different parts of the game.
-
--Created methods to draw 1 card and to take the cards after a player wins the turn.
+<br>-Created methods to draw 1 card and to take the cards after a player wins the turn.
 <br>-Coded some test code in the Main method to have the program play the game on its own, but since war can be super long, I limited it to 500 turns
 or else it seems like it goes into an almost infinite loop. When I ran the test without the limit, I let the progrm run for 30 seconds, the number 
 of cards in each hand didn't change much, and my laptop's fan started revving up.
