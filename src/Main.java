@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     private List<Card> userHand = new ArrayList<>();
@@ -8,40 +8,39 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game();
-        Deck testDeck1 = game.getStartingDeck();
-        System.out.println("Starting deck has " + testDeck1.getListOfCards().size());
-        System.out.println("splitting the deck");
+        Scanner scanner = new Scanner(System.in);
         game.giveCardsToPlayers();
-        Deck testDeck2 = game.getUserHand();
-        Deck testDeck3 = game.getComputerDeck();
         int count = 0;
         int wars = 0;
-        while (count < 500) {
-            if (testDeck2.getListOfCards().size() == 0 || testDeck3.getListOfCards().size() == 0) {
+        System.out.println(game.getCardsCurrentlyPlayed().getListOfCards().size());
+        while (game.getUserDeck().getListOfCards().size() > 0 || game.getUserDiscard().getListOfCards().size() > 0) {
+            if (game.getUserDeck().getListOfCards().size() == 0 && game.getUserDiscard().getListOfCards().size() == 0) {
                 break;
             }
-            Card currentUserCard = testDeck2.drawOneCard();
-            System.out.println("User just drew the " + currentUserCard.getCard() + ". User hand now has " + testDeck2.getListOfCards().size());
-            Card currentCompCard = testDeck3.drawOneCard();
-            System.out.println("Computer just drew the " + currentCompCard.getCard() + ". Computer now has " + testDeck3.getListOfCards().size());
-
-            int compRank = currentCompCard.getRank();
-            int userRank = currentUserCard.getRank();
-            if (compRank > userRank) {
-                System.out.println(currentCompCard.getCard() + " is greater than " + currentUserCard.getCard() + ". Computer gets both cards.");
-                testDeck3.addCardToDeck(currentCompCard);
-                testDeck3.addCardToDeck(currentUserCard);
-            } else if (userRank > compRank) {
-                System.out.println(currentUserCard.getCard() + " is greater that " + currentCompCard.getCard() + ". User gets both cards.");
-                testDeck2.addCardToDeck(currentCompCard);
-                testDeck2.addCardToDeck(currentUserCard);
-            } else {
-                System.out.println(currentCompCard.getCard() + " = " + currentUserCard + ". WAR!******************************");
-                wars++;
+            if (game.getComputerDeck().getListOfCards().size() == 0 && game.getComputerDiscard().getListOfCards().size() == 0) {
+                break;
             }
+            System.out.println("");
+            System.out.println("User deck has " + game.getUserDeck().getListOfCards().size() + ". Computer deck has " + game.getComputerDeck().getListOfCards().size());
+            System.out.println("User hand has " + game.getUserDiscard().getListOfCards().size() + ". Computer hand has " + game.getComputerDiscard().getListOfCards().size());
+            System.out.print("(D)raw a card or (G)ive up and end the game: ");
+            char response = scanner.next().charAt(0);
+            if (response =='G' || response == 'g') {
+                break;
+            } else if (response != 'D') {
+                if (response != 'd') {
+                    System.out.println("Invalid response. Interpreting as giving up.");
+                    break;
+                }
+            }
+            Card cardUserDrew = game.userDrawsCard();
+            Card cardComputerDrew = game.computerDrawsCard();
+            game.compareCards(cardComputerDrew, cardUserDrew);
+
+
             count++;
         }
-        System.out.println("Game over. Each player flipped " + count + " cards. " + wars + " wars happened.");
+        System.out.println("Game over. You gave up after " + count + " rounds. " + wars + " wars happened.");
     }
 
 }

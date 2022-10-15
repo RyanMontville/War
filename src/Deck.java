@@ -50,4 +50,5 @@ public class Deck {
     public void addCardToDeck(Card card) {
         this.deckOfCards.add(card);
     }
+    public void addMultipleCardsToDeck(List<Card> cards) { this.deckOfCards.addAll(cards); }
 }
