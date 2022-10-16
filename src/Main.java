@@ -22,8 +22,7 @@ public class Main {
             System.out.print("You have " + (game.getUserDeck().getListOfCards().size() + game.getUserDiscard().getListOfCards().size()) + " cards total. ");
             System.out.println("The computer has " + (game.getComputerDeck().getListOfCards().size() + game.getComputerDiscard().getListOfCards().size()) + " cards total.");
             System.out.print("(D)raw a card or (G)ive up and end the game: ");
-            //char response = scanner.next().charAt(0);
-            char response = 'D';
+            char response = scanner.next().charAt(0);
             if (response =='G' || response == 'g') {
                 break;
             } else if (response != 'D') {
