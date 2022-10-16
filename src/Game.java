@@ -62,23 +62,15 @@ public class Game {
     }
 
     public Card userDrawsCard() {
-        if(userDeck.getListOfCards().size() == 0) {
-            userDeck.addMultipleCardsToDeck(userDiscard.getListOfCards());
-            userDiscard.getListOfCards().removeAll(userDiscard.getListOfCards());
-            userDeck.shuffleDeck();
-        }
+        this.checkIfDeckIsEmpty(false,'U');
         Card card = userDeck.drawOneCard();
-        System.out.print("You drew a " + card.getCard() +". ");
+        System.out.println("You drew a " + card.getCard() +". ");
         this.cardsCurrentlyPlayed.addCardToDeck(card);
         return card;
     }
 
     public Card computerDrawsCard() {
-        if(computerDeck.getListOfCards().size() == 0) {
-            computerDeck.addMultipleCardsToDeck(computerDiscard.getListOfCards());
-            computerDiscard.getListOfCards().removeAll(computerDiscard.getListOfCards());
-            computerDeck.shuffleDeck();
-        }
+        this.checkIfDeckIsEmpty(false, 'C');
         Card card = computerDeck.drawOneCard();
         System.out.println("The computer drew a " + card.getCard() + ".");
         this.cardsCurrentlyPlayed.addCardToDeck(card);
@@ -108,20 +100,77 @@ public class Game {
     }
 
     public void playWar() {
-        this.cardsCurrentlyPlayed.addMultipleCardsToDeck(computerDeck.drawCardsForWar());
-        this.cardsCurrentlyPlayed.addMultipleCardsToDeck(userDeck.drawCardsForWar());
-        Card computerWarCard = computerDeck.drawOneCard();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("(D)raw your card: ");
-        char warResponse = scanner.next().charAt(0);
-        if (warResponse != 'D') {
-            if(warResponse != 'd') {
-                System.out.println("There is no escaping war! Drawing a card for you.");
+        this.checkIfDeckIsEmpty(true,'C');
+        this.checkIfDeckIsEmpty(true,'U');
+        if(this.userDeck.getListOfCards().size() == 0 ) {
+            System.out.println("You don't have any cards left for the war.");
+        } else if (this.computerDeck.getListOfCards().size() == 0) {
+            System.out.println("The computer does not have any cards left for the war.");
+        } else {
+            this.cardsCurrentlyPlayed.addMultipleCardsToDeck(computerDeck.drawCardsForWar("computer"));
+            this.cardsCurrentlyPlayed.addMultipleCardsToDeck(userDeck.drawCardsForWar("user"));
+            Card computerWarCard = this.computerDrawsCard();
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("(D)raw your card: ");
+            char warResponse = scanner.next().charAt(0);
+            if (warResponse != 'D') {
+                if(warResponse != 'd') {
+                    System.out.println("There is no escaping war! Drawing a card for you.");
+                }
+            }
+            Card userWarCard = this.userDrawsCard();
+            this.compareCards(computerWarCard,userWarCard);
+        }
+    }
+
+    public void checkIfDeckIsEmpty(boolean war, char p) {
+        if( p == 'C') { //computer
+            if(!war) {
+                if(this.computerDeck.getListOfCards().size() == 0) {
+                    computerDeck.addMultipleCardsToDeck(computerDiscard.getListOfCards());
+                    computerDiscard.getListOfCards().removeAll(computerDiscard.getListOfCards());
+                    computerDeck.shuffleDeck();
+                } else {
+                    if(this.computerDeck.getListOfCards().size() < 5) {
+                        computerDeck.addMultipleCardsToDeck(computerDiscard.getListOfCards());
+                        computerDiscard.getListOfCards().removeAll(computerDiscard.getListOfCards());
+                        computerDeck.shuffleDeck();
+                    }
+                }
+            }
+        } else { //user
+            if (!war) {
+                if (this.userDeck.getListOfCards().size() == 0) {
+                    userDeck.addMultipleCardsToDeck(userDiscard.getListOfCards());
+                    userDiscard.getListOfCards().removeAll(userDiscard.getListOfCards());
+                    userDeck.shuffleDeck();
+                }
+            } else {
+                if (this.userDeck.getListOfCards().size() < 5) {
+                    userDeck.addMultipleCardsToDeck(userDiscard.getListOfCards());
+                    userDiscard.getListOfCards().removeAll(userDiscard.getListOfCards());
+                    userDeck.shuffleDeck();
+                }
             }
         }
-        Card userWarCard = userDeck.drawOneCard();
-        System.out.println("You drew " + userWarCard.getCard() + ". The computer drew " + computerWarCard.getCard() + ".");
-        this.compareCards(computerWarCard,userWarCard);
+
+    }
+
+    public void totalNumberOfCards() {
+        int count = 0;
+        count += this.startingDeck.getListOfCards().size();
+        System.out.print("Starting deck: " + this.startingDeck.getListOfCards().size());
+        count += this.cardsCurrentlyPlayed.getListOfCards().size();
+        System.out.print(" Current play pile: " + this.cardsCurrentlyPlayed.getListOfCards().size());
+        count += this.userDeck.getListOfCards().size();
+        System.out.print(" User Deck: " + this.userDeck.getListOfCards().size());
+        count += this.computerDeck.getListOfCards().size();
+        System.out.print(" Computer Deck: " + this.computerDeck.getListOfCards().size());
+        count += this.userDiscard.getListOfCards().size();
+        System.out.print(" User Discard: " + this.userDiscard.getListOfCards().size());
+        count += this.computerDiscard.getListOfCards().size();
+        System.out.print(" Computer Discard: " + this.computerDiscard.getListOfCards().size());
+        System.out.println(" TOTAL: " + count);
     }
 
 }

@@ -47,11 +47,23 @@ public class Deck {
         return drawnCard;
     }
 
-    public List<Card> drawCardsForWar() {
+    public List<Card> drawCardsForWar(String player) {
         List<Card> cardsForWar = new ArrayList<>();
-        for (int i=0;i<4;i++) {
-            Card card = this.deckOfCards.get(0);
-            cardsForWar.add(card);
+        if (deckOfCards.size() < 4) {
+            System.out.println(player + " has less than 4 cards, so the only play " + (deckOfCards.size()-1 + " cards instead of 3."));
+            for (int i=0;i<deckOfCards.size()-1;i++){
+                Card card = this.deckOfCards.get(0);
+                cardsForWar.add(card);
+                this.deckOfCards.remove(card);
+                System.out.println(player + " places 1 card face down.");
+            }
+        } else {
+            for (int i=0;i<3;i++) {
+                Card card = this.deckOfCards.get(0);
+                cardsForWar.add(card);
+                this.deckOfCards.remove(card);
+                System.out.println(player + " places 1 card face down.");
+            }
         }
         return cardsForWar;
     }
