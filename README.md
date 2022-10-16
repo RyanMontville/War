@@ -29,3 +29,4 @@ The program is a mostly fully functional game of war.
 <br>-Added the method to call when a war takes place.
 <br>-Cleaned up what is printed to the console.
 <br>-Things to still add: web interface, mode were the computer plays out the entire game without user input adn reports how many round it took.
+<br>-Current bug were the total number of cards goes over 52 during a war. Some list should be getting smaller, but is not. Trying to figure it out.
