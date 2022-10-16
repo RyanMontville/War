@@ -30,3 +30,6 @@ The program is a mostly fully functional game of war.
 <br>-Cleaned up what is printed to the console.
 <br>-Things to still add: web interface, mode were the computer plays out the entire game without user input adn reports how many round it took.
 <br>-Current bug were the total number of cards goes over 52 during a war. Some list should be getting smaller, but is not. Trying to figure it out.
+
+## V 1.1
+I have fixed the bug were there would be over 52 cards total after a war, I was calling 2 different methods to draw cards, so it was adding twice as many cards as it should have. I have also fixed cases were a player would not have enough cards for a war, which would break the game when it tried drawing a card from a deck of 0.
