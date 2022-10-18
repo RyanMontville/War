@@ -9,7 +9,9 @@ public class Game {
     private Deck cardsCurrentlyPlayed;
     private Deck userDiscard;
     private Deck computerDiscard;
+    private int roundCount = 0;
     private int warCount = 0;
+    private int shuffledCount = 0;
 
     public Game() {
         this.startingDeck = new Deck(createNewDeck());
@@ -42,7 +44,8 @@ public class Game {
         return computerDiscard;
     }
 
-    public int getWarCount() { return warCount; }
+    public int getRoundCount() { return roundCount; }
+
 
     public List<Card> createNewDeck() {
         char[] suits = new char[] { '\u2660', '\u2666', '\u2663', '\u2665' };
@@ -66,6 +69,7 @@ public class Game {
         Card card = userDeck.drawOneCard();
         System.out.println("You drew a " + card.getCard() +". ");
         this.cardsCurrentlyPlayed.addCardToDeck(card);
+        this.roundCount++;
         return card;
     }
 
@@ -77,7 +81,7 @@ public class Game {
         return card;
     }
 
-    public void compareCards(Card cardComputerDrew, Card cardUserDrew) {
+    public void compareCards(Card cardComputerDrew, Card cardUserDrew,boolean userInput) {
         int compRank = cardComputerDrew.getRank();
         int userRank = cardUserDrew.getRank();
         if(compRank == 1) { compRank = 14; }
@@ -94,12 +98,11 @@ public class Game {
 
         } else {
             System.out.println(cardComputerDrew.getCard() + " = " + cardUserDrew.getCard() + ". WAR! Each player draws 3 cards face down, then draws.");
-            this.playWar();
-            warCount++;
+            this.playWar(userInput);
         }
     }
 
-    public void playWar() {
+    public void playWar(boolean userInput) {
         this.checkIfDeckIsEmpty(true,'C');
         this.checkIfDeckIsEmpty(true,'U');
         if(this.userDeck.getListOfCards().size() == 0 ) {
@@ -110,17 +113,20 @@ public class Game {
             this.cardsCurrentlyPlayed.addMultipleCardsToDeck(computerDeck.drawCardsForWar("computer"));
             this.cardsCurrentlyPlayed.addMultipleCardsToDeck(userDeck.drawCardsForWar("user"));
             Card computerWarCard = this.computerDrawsCard();
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("(D)raw your card: ");
-            char warResponse = scanner.next().charAt(0);
-            if (warResponse != 'D') {
-                if(warResponse != 'd') {
-                    System.out.println("There is no escaping war! Drawing a card for you.");
+            if (userInput) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("(D)raw your card: ");
+                char warResponse = scanner.next().charAt(0);
+                if (warResponse != 'D') {
+                    if(warResponse != 'd') {
+                        System.out.println("There is no escaping war! Drawing a card for you.");
+                    }
                 }
             }
             Card userWarCard = this.userDrawsCard();
-            this.compareCards(computerWarCard,userWarCard);
+            this.compareCards(computerWarCard,userWarCard,userInput);
         }
+        this.warCount++;
     }
 
     public void checkIfDeckIsEmpty(boolean war, char p) {
@@ -171,6 +177,23 @@ public class Game {
         count += this.computerDiscard.getListOfCards().size();
         System.out.print(" Computer Discard: " + this.computerDiscard.getListOfCards().size());
         System.out.println(" TOTAL: " + count);
+    }
+
+    public void displayGameStats() {
+        this.shuffledCount = userDeck.getDeckShuffleCount() + computerDeck.getDeckShuffleCount() + userDiscard.getDeckShuffleCount() + computerDiscard.getDeckShuffleCount();
+        System.out.println(this.shuffledCount + " shuffles occurred between both players.");
+        System.out.println(this.roundCount + " rounds were played.");
+        System.out.println(this.warCount + " wars occurred.");
+        if (this.getRoundCount() != 0) {
+            System.out.print("If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for ");
+            int totalTime = ((this.warCount * 10) + (this.roundCount * 5) + 30 + (this.shuffledCount * 60))/60;
+            System.out.println (totalTime + " minutes.");
+            //30 seconds to split and deal the cards
+            //5 second to per round
+            //4 seconds for war
+            //60 seconds for a good shuffle
+        }
+
     }
 
 }

@@ -6,6 +6,7 @@ public class Deck {
     private List<Card> deckOfCards = new ArrayList<>();
     private List<Card> handOne = new ArrayList<>();
     private List<Card> handTwo = new ArrayList<>();
+    private int deckShuffleCount = 0;
 
     public Deck(List<Card> cards) {
         this.deckOfCards = cards;
@@ -14,7 +15,10 @@ public class Deck {
 
     public void shuffleDeck() {
         Collections.shuffle(deckOfCards);
+        this.deckShuffleCount++;
     }
+
+    public int getDeckShuffleCount() { return deckShuffleCount; }
 
     public List<Card> getListOfCards() {
         return this.deckOfCards;
