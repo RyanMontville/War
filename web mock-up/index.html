@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War</title>
+    <link rel="stylesheet" type="text/css" href="war-style.css" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="https://ryanmontville.com">Ryan Montville.com</a></li>
+                <li><a href="https://ryanmontville.com/portfolio.php">Portfolio</a></li>
+                <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/RyanMontville/War">View this
+                        project on GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="welcome">
+            <h2>Welcome to War!</h2>
+            <p>If you have never played war before, or maybe it's been a while since you have last played, here are the
+                rules. To start, the deck is divided evenly to
+                both players. Each round both players place a card face up and the player with the higher card put both
+                cards in their discard pile. If the cards are
+                the same rank, a war occurs. In a war both players place 3 cards face down, then a 4th card face up and
+                the player with the high card gets all the cards.
+                If a player runs out of cards from their deck, they shuffle their discard pile and keep on playing. The
+                game ends when a player has won all 52 cards. Aces are
+                high.</p>
+            <p>You have the option to play out the game as normal against the computer or if you don't have time, you
+                can run the game as a simulation and have the computer
+                report who won, how long it would have taken to play, and other stats about the game.</p>
+                <p>(This page is currently just a mock-up. It is all hardcoded and the only functionality is showing the welcome screen,
+                    clicking on "Start Game" shows the game, and clicking "Give Up" shows the game over screen.)</p>
+            <article class="button-group">
+                <button class="small button green" id="startBtn">Start Game</button>
+                <button class="small button blue">Run game as simulation</button>
+            </article>
+        </section>
+        <section id="game" class="display-none">
+            <ul id="stats">
+                <li>Round: 52</li>
+                <li>Wars: 3</li>
+                <li>You have shuffled your cards 5 times</li>
+                <li>The computer has shuffled its cars 4 times</li>
+            </ul>
+            <article id="table">
+                <!--Spade:  &#9824;  Heart:  &#9829;  Club:  &#9827;  Diamond:  &#9830;  -->
+                <h3>The computer has 24 cards</h3>
+                <div id="computer-card" class="computer card">
+                    <p>5</p><span class="suit">&#9824;</span>
+                    <p class="bottom">5</p>
+                </div>
+                <div id="player-card" class="card">
+                    <p>7</p><span class="red-card suit">&#9829;</span>
+                    <p class="bottom">7</p>
+                </div>
+                <h3 class="right">You have 26 cards</h3>
+            </article>
+            <article id="info" class="button-group">
+                <span class="small date-time white">7 is higher than 5. You get the cards.</span>
+                <button class="green button arrow">Draw Card</button>
+                <button class="red button arrow" id="giveUpBtn">Give Up</button>
+            </article>
+        </section>
+        <section id="end" class="display-none">
+            <h2>GAME OVER. YOU WON!</h2>
+            <h3>You played 345 rounds</h3>
+            <h3>You shuffled your cards 50 times</h3>
+            <h3>The computer shuffled its cards 42 times</h3>
+            <h3>20 wars occurred</h3>
+            <h3>If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for 87 minutes.</h3>
+            <article class="button-group">
+                <button id="playAgainBtn" class="small button green">Play Again</button>
+                <button id="showWelcomeBtn" class="small button blue">Show Welcome Screen</button>
+            </article>
+        </section>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

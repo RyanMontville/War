@@ -38,4 +38,5 @@ I have fixed the bug were there would be over 52 cards total after a war, I was 
 I added an option to have the computer run the entire game and report how long it would have taken to play in real life.
 
 ## V 1.3
-I have turned the CLI into an API so that I can have it run in a browser.
+-I have turned the CLI into an API so that I can have it run in a browser.
+<br>-I have created a mock-up of what the game might look like in a browser. There is no functionality to anything yet.
