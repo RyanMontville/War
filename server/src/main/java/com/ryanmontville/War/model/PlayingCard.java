@@ -1,14 +1,17 @@
-public class Card {
+package com.ryanmontville.War.model;
+
+public class PlayingCard {
     private char suit;
     private int rank;
-    public Card(int rank, char suit){
+
+    public PlayingCard(int rank, char suit){
         this.rank = rank;
         this.suit = suit;
     }
 
     public char getSuit() { return this.suit; }
     public int getRank() { return this.rank; }
-    public String getCard() {
+    public String getPlayingCard() {
         String card = "";
         if (rank == 1) {
             card = "A" + this.suit;
