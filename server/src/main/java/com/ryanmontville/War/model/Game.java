@@ -12,16 +12,20 @@ public class Game {
     private Deck cardsCurrentlyPlayed;
     private Deck userDiscard;
     private Deck computerDiscard;
+    private int userCardCount;
+    private int computerCardCount;
     private int roundCount = 0;
     private int warCount = 0;
     private int shuffledCount = 0;
     private int totalTime;
+    private boolean isGameOver;
 
     public Game() {
         this.startingDeck = new Deck(createNewDeck());
         this.cardsCurrentlyPlayed = new Deck(new ArrayList<>());
         this.userDiscard = new Deck(new ArrayList<>());
         this.computerDiscard = new Deck(new ArrayList<>());
+        this.isGameOver = false;
     }
 
     public Deck getStartingDeck() {
@@ -34,6 +38,14 @@ public class Game {
 
     public Deck getUserDeck() {
         return userDeck;
+    }
+
+    public int getUserCardCount() {
+        return this.userDeck.getPlayingCardCount() + this.getUserDiscard().getPlayingCardCount();
+    }
+
+    public int getComputerCardCount() {
+        return this.getComputerDeck().getPlayingCardCount() + this.getComputerDiscard().getPlayingCardCount();
     }
 
     public Deck getCardsCurrentlyPlayed() {
@@ -55,6 +67,10 @@ public class Game {
     public int getTotalTime() {
         return (((this.warCount*10) + (this.roundCount*5) + (this.shuffledCount*60))/60);
     }
+
+    public boolean isGameOver() { return isGameOver; }
+
+    public void setGameOver(boolean isOver) { this.isGameOver = isOver; }
 
     public List<PlayingCard> createNewDeck() {
         char[] suits = new char[] { '\u2660', '\u2666', '\u2663', '\u2665' };

@@ -5,28 +5,26 @@ public class Output {
     private String outcome;
     private String  userHandCount;
     private String computerHandCount;
-    private String userDiscardCount;
-    private String computerDiscardCount;
     private String userCard;
     private String computerCard;
     private String  round;
     private String  userShuffleCount;
     private String  computerShuffleCount;
     private String warCount;
+    private boolean isGameOver;
 
-    public Output(String outcome, String userHandCount, String computerHandCount, String userDiscardCount, String computerDiscardCount, String userCard,
-                  String computerCard, String round, String userShuffleCount, String computerShuffleCount, String warCount) {
+    public Output(String outcome, String userHandCount, String computerHandCount, String userCard,
+                  String computerCard, String round, String userShuffleCount, String computerShuffleCount, String warCount, boolean isGameOver) {
         this.outcome = outcome;
         this.userHandCount = userHandCount;
         this.computerHandCount = computerHandCount;
-        this.userDiscardCount = userDiscardCount;
-        this.computerDiscardCount = computerDiscardCount;
         this.userCard = userCard;
         this.computerCard = computerCard;
         this.round = round;
         this.userShuffleCount = userShuffleCount;
         this.computerShuffleCount = computerShuffleCount;
         this.warCount = warCount;
+        this.isGameOver = isGameOver;
     }
 
     public String getOutcome() {
@@ -39,14 +37,6 @@ public class Output {
 
     public String getComputerHandCount() {
         return computerHandCount;
-    }
-
-    public String getUserDiscardCount() {
-        return userDiscardCount;
-    }
-
-    public String getComputerDiscardCount() {
-        return computerDiscardCount;
     }
 
     public String getUserCard() {
@@ -72,4 +62,6 @@ public class Output {
     public String getWarCount() {
         return warCount;
     }
+
+    public boolean isGameOver() { return isGameOver; }
 }
