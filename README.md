@@ -40,3 +40,6 @@ I added an option to have the computer run the entire game and report how long i
 ## V 1.3
 -I have turned the CLI into an API so that I can have it run in a browser.
 <br>-I have created a mock-up of what the game might look like in a browser. There is no functionality to anything yet.
+
+## V 2.0
+I created the front end using React.js. The game is now playable in the browser.

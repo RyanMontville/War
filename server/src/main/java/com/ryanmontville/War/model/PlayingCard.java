@@ -14,15 +14,15 @@ public class PlayingCard {
     public String getPlayingCard() {
         String card = "";
         if (rank == 1) {
-            card = "A" + this.suit;
+            card = "A";
         } else if (rank == 11) {
-            card = "J" + this.suit;
+            card = "J";
         } else if (rank == 12) {
-            card = "Q" + this.suit;
+            card = "Q";
         } else if (rank == 13) {
-            card = "K" + this.suit;
+            card = "K";
         } else {
-            card = card + this.rank + this.suit;
+            card = card + this.rank;
         }
         return card;
     }

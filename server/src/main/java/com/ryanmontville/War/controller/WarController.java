@@ -6,12 +6,13 @@ import com.ryanmontville.War.model.PlayingCard;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class WarController {
 
     Game game;
 
     @RequestMapping(path = "/startGame/{gameType}", method = RequestMethod.GET)
-    public String startGame(@PathVariable char gameType) {
+    public Output startGame(@PathVariable char gameType) {
         String message = "";
         String whoWon = "";
         if(gameType == 'p') {
@@ -21,28 +22,28 @@ public class WarController {
         } else {
             game = new Game();
             game.giveCardsToPlayers();
-            int computerTotal = game.getComputerDeck().getPlayingCardCount() + game.getComputerDiscard().getPlayingCardCount();
-            int userTotal = game.getUserDeck().getPlayingCardCount() + game.getUserDiscard().getPlayingCardCount();
 
-            while (computerTotal > 0 && userTotal > 0) {
+            while (game.getComputerCardCount() > 0 && game.getUserCardCount() > 0) {
                 PlayingCard cardUserDrew = game.userDrawsCard();
                 PlayingCard cardComputerDrew = game.computerDrawsCard();
                 game.compareCards(cardComputerDrew, cardUserDrew, false);
-                computerTotal = game.getComputerDeck().getPlayingCardCount() + game.getComputerDiscard().getPlayingCardCount();
-                userTotal = game.getUserDeck().getPlayingCardCount() + game.getUserDiscard().getPlayingCardCount();
             }
-            if(userTotal>0 && computerTotal==0){
+            if(game.getUserCardCount()>0 && game.getComputerCardCount()==0){
                 whoWon = "player ";
-            } else if(computerTotal>0 && userTotal==0) {
+            } else if(game.getComputerCardCount()>0 && game.getUserCardCount()==0) {
                 whoWon = "Computer ";
             } else {
                 whoWon = "something went wrong.";
             }
-            message = "Game over after " + game.getRoundCount() + " rounds. Winner: " + whoWon;
+            message = "Game over after " + game.getRoundCount() + " rounds. Winner: " + whoWon + ". If you were playing this game IRL and it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for "
+                    + game.getTotalTime() + " minutes.";
 
             game.setGameOver(true);
         }
-        return message;
+        Output output = new Output(message,game.getUserCardCount(),game.getComputerCardCount(),"0",' ', "0",
+                ' ', game.getRoundCount(), game.getUserDeck().getDeckShuffleCount(), game.getComputerDeck().getDeckShuffleCount(),
+                game.getWarCount(), game.isGameOver());
+        return output;
     }
 
     @RequestMapping(path = "/getUserHand", method = RequestMethod.GET)
@@ -58,74 +59,61 @@ public class WarController {
         String outcome;
         PlayingCard userCard;
         PlayingCard computerCard;
-        String userCardStr;
-        String computerCardStr;
-        if(game.getUserDeck().getPlayingCardCount()==0 && game.getUserDiscard().getPlayingCardCount()==0){
+        String playerRank = "0";
+        char playerSuit = 'O';
+        String computerRank = "0";
+        char computerSuit = 'O';
+        if(game.getUserCardCount()==0){
             outcome = "Game Over. You Lose. If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for "
                     + game.getTotalTime() + " minutes.";
-            userCardStr = "Game over";
-            computerCardStr = "Game over";
             game.setGameOver(true);
-        } else if(game.getComputerDeck().getPlayingCardCount()==0 && game.getComputerDiscard().getPlayingCardCount()==0){
+        } else if(game.getComputerCardCount()==0){
             outcome = "Game Over. You Win! If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for "
                     + game.getTotalTime() + " minutes.";
-            userCardStr = "Game Over";
-            computerCardStr = "Game Over";
             game.setGameOver(true);
         } else {
             if(!game.isGameOver()){
                 userCard = game.userDrawsCard();
                 computerCard = game.computerDrawsCard();
-                outcome = game.compareCards(userCard,computerCard,true);
-                userCardStr = "User drew a " + userCard.getPlayingCard();
-                computerCardStr = "Computer drew a " + computerCard.getPlayingCard();
+                outcome = game.compareCards(computerCard,userCard,true);
+                playerSuit = userCard.getSuit();
+                playerRank = userCard.getPlayingCard();
+                computerSuit = computerCard.getSuit();
+                computerRank = computerCard.getPlayingCard();
             } else {
-                userCardStr = "Game Over";
-                computerCardStr = "Game Over";
                 outcome = "Game Over";
             }
 
         }
-        String userHandCount = "User hand: " + game.getUserCardCount() + " cards";
-        String  computerHandCount = "Computer hand: " + game.getComputerCardCount() + " cards";
-        String round = "Round: " + game.getRoundCount();
-        String userShuffleCount = "User shuffled " + game.getUserDeck().getDeckShuffleCount() + " times";
-        String computerShuffleCount = "Computer shuffled " + game.getComputerDeck().getDeckShuffleCount() + " times";
-        String watCount = "Wars: " + game.getWarCount();
-        Output output = new Output(outcome,userHandCount,computerHandCount,userCardStr,computerCardStr,round,
-                userShuffleCount,computerShuffleCount,watCount,game.isGameOver());
+
+        Output output = new Output(outcome,game.getUserCardCount(),game.getComputerCardCount(),playerRank,playerSuit, computerRank,
+                computerSuit, game.getRoundCount(), game.getUserDeck().getDeckShuffleCount(), game.getComputerDeck().getDeckShuffleCount(),
+                game.getWarCount(), game.isGameOver());
 
         return output;
     }
 
-    @RequestMapping(path = "/giveUp/{gameType}", method = RequestMethod.GET)
-    public Output giveUp(@PathVariable char gameType) {
+    @RequestMapping(path = "/giveUp", method = RequestMethod.GET)
+    public Output giveUp() {
         String outcome;
         game.setGameOver(true);
-        if(gameType=='p'){
-            outcome = "You gave up after " + game.getRoundCount() + " rounds. If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for "
-                    + game.getTotalTime() + " minutes.";
+        if(game.getComputerCardCount()==0){
+            outcome = "You Win! If you were playing this game IRL and it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for " + game.getTotalTime() + " minutes.";
+        } else if (game.getUserCardCount()==0){
+            outcome = "You Lose. If you were playing this game IRL and it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for " + game.getTotalTime() + " minutes.";
         } else {
-            String winner;
-            if(game.getComputerCardCount()==0){
-                winner = "You would have won after ";
-            } else {
-                winner = "The computer would have won after ";
-            }
-            outcome = winner + game.getRoundCount() + " rounds. If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for "
+            outcome = "You gave up after " + game.getRoundCount() + " rounds. If you were playing this game IRL and it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for "
                     + game.getTotalTime() + " minutes.";
         }
-        String userHandCount = "User hand: " + game.getUserCardCount() + " cards";
-        String  computerHandCount = "Computer hand: " + game.getComputerCardCount() + " cards";
-        String round = "Round: " + game.getRoundCount();
-        String userShuffleCount = "User shuffled " + game.getUserDeck().getDeckShuffleCount() + " times";
-        String computerShuffleCount = "Computer shuffled " + game.getComputerDeck().getDeckShuffleCount() + " times";
-        String watCount = "Wars: " + game.getWarCount();
-        String userCardStr = "Game over";
-        String computerCardStr = "Game over";
 
-        Output output = new Output(outcome,userHandCount,computerHandCount,userCardStr,computerCardStr,round,
-                userShuffleCount,computerShuffleCount,watCount,true);
+        String playerRank = "0";
+        char playerSuit = 'O';
+        String computerRank = "0";
+        char computerSuit = 'O';
+
+        Output output = new Output(outcome,game.getUserCardCount(),game.getComputerCardCount(),playerRank,playerSuit, computerRank,
+                computerSuit, game.getRoundCount(), game.getUserDeck().getDeckShuffleCount(), game.getComputerDeck().getDeckShuffleCount(),
+                game.getWarCount(), game.isGameOver());
 
         return output;
     }

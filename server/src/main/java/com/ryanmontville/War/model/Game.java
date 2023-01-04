@@ -2,7 +2,6 @@ package com.ryanmontville.War.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Game {
 
@@ -12,12 +11,9 @@ public class Game {
     private Deck cardsCurrentlyPlayed;
     private Deck userDiscard;
     private Deck computerDiscard;
-    private int userCardCount;
-    private int computerCardCount;
     private int roundCount = 0;
     private int warCount = 0;
     private int shuffledCount = 0;
-    private int totalTime;
     private boolean isGameOver;
 
     public Game() {
@@ -41,11 +37,11 @@ public class Game {
     }
 
     public int getUserCardCount() {
-        return this.userDeck.getPlayingCardCount() + this.getUserDiscard().getPlayingCardCount();
+        return this.userDeck.getPlayingCardCount() + this.userDiscard.getPlayingCardCount();
     }
 
     public int getComputerCardCount() {
-        return this.getComputerDeck().getPlayingCardCount() + this.getComputerDiscard().getPlayingCardCount();
+        return this.computerDeck.getPlayingCardCount() + this.computerDiscard.getPlayingCardCount();
     }
 
     public Deck getCardsCurrentlyPlayed() {
@@ -73,7 +69,7 @@ public class Game {
     public void setGameOver(boolean isOver) { this.isGameOver = isOver; }
 
     public List<PlayingCard> createNewDeck() {
-        char[] suits = new char[] { '\u2660', '\u2666', '\u2663', '\u2665' };
+        char[] suits = new char[] { 'S', 'D', 'C', 'H' };
         List<PlayingCard> newDeck = new ArrayList<>();
         for (char suit : suits) {
             for(int i=1;i<14;i++){
