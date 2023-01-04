@@ -43,3 +43,10 @@ I added an option to have the computer run the entire game and report how long i
 
 ## V 2.0
 I created the front end using React.js. The game is now playable in the browser.
+
+<div>
+<img src="https://github.com/RyanMontville/War/blob/main/Screenshots/homepage.png" alt="homepage" title="Homepage" style="width: 20%; display: inline-block;"></img>
+<img src="https://github.com/RyanMontville/War/blob/main/Screenshots/game.png" alt="game" title="Playing the game" style="width: 20%; display: inline-block;"></img>
+<img src="https://github.com/RyanMontville/War/blob/main/Screenshots/simulation.png" alt="simulation" title="Running the game as a simulation" style="width: 20%; display: inline-block;"></img>
+<img src="https://github.com/RyanMontville/War/blob/main/Screenshots/game-over.png" alt="gave-over" title="Game Over Screen" style="width: 20%; display: inline-block;"></img>
+</div>
