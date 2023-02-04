@@ -1,1 +1,11 @@
-GAME OVER
+<h1>GAME OVER</h1>
+<p *ngIf="roundOutcome.playHandCount===0">You lost after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
+<p *ngIf="roundOutcome.computerHandCount===0">You won after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
+<p *ngIf="roundOutcome.computerHandCount!=0 && roundOutcome.playHandCount!=0">You game up after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
+<p>You shuffled your deck {{roundOutcome.playerShuffleCount}} time{{roundOutcome.playerShuffleCount===1 ? '' : 's'}}</p>
+<p>The computer shuffled it's deck {{roundOutcome.computerShuffleCount}} time{{roundOutcome.computerShuffleCount===1 ? '' : 's'}}</p>
+<p>{{roundOutcome.warCount}} war{{roundOutcome.warCount===1 ? '' : 's'}} occurred</p>
+<section class="btn-group">
+    <button (click)="start()" class="btn btn-green size-20 half">Play New Game</button>
+    <button  class="btn btn-blue size-20 half">Run Simulation</button>
+  </section>

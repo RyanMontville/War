@@ -50,4 +50,10 @@ export class Deck {
     clearDeck() {
         this.deck = [];
     }
+
+    returnDeck() {
+        let deckToReturn = this.deck;
+        this.clearDeck();
+        return deckToReturn;
+    }
 }

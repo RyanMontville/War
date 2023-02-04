@@ -20,4 +20,8 @@ export class Card {
             return this.rank.toString();
         }
     }
+
+    toString(): string {
+        return this.getRank() + this.suit;
+    }
 }

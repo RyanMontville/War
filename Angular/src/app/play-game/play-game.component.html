@@ -1,4 +1,10 @@
-
+<p>Round: {{roundOutcome.roundNumber}}</p>
+<p>Player: {{roundOutcome.playerCard.toString()}} {{roundOutcome.playHandCount}}</p>
+<p>Computer: {{roundOutcome.computerCard.toString()}} {{roundOutcome.computerHandCount}}</p>
+<p>{{roundOutcome.message}}</p>
+<p>You have shuffled your deck {{roundOutcome.playerShuffleCount}} time{{roundOutcome.playerShuffleCount===1 ? '' : 's'}}</p>
+<p>The computer has shuffled it's deck {{roundOutcome.computerShuffleCount}} time{{roundOutcome.computerShuffleCount===1 ? '' : 's'}}</p>
+<p>{{roundOutcome.warCount}} war{{roundOutcome.warCount===1 ? ' has' : 's have'}} occurred</p>
 
 <section class="btn-group">
     <button (click)="draw()" class="btn btn-green size-20 half">Draw Card</button>
