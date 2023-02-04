@@ -56,6 +56,10 @@ The program is a mostly fully functional game of war.
 #### V 2.0
 * I created the front end using React.js. The game is now playable in the browser.
 
+#### V 3.0
+* I want to have a live demo of the game, so I am rebuilding the app using Typescript. I have decided to switch to Angular since it supports Typescript natively.
+* When the app is done, it will run entirely within the Angular front end. It will not talk to the API or use any of the Java code I have previously written.
+
 [Back to Top](#top)
 
 <a id='screenshots'></a>
