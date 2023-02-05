@@ -39,6 +39,7 @@ nav a:hover {
 
 .menu {
     display: flex;
+    align-items: center;
     gap: 1em;
     font-size: 18px;
 }
@@ -68,7 +69,12 @@ main {
 }
 
 /***************************** media breakpoints ***********************/
-@media (max-width: 768px) {
+@media only screen and (max-width: 1015px) and (min-width: 870px){
+    .extra-nav-text {
+        display: none;
+    }
+}
+@media (max-width: 870px) {
     .menu {
         display: none;
         position: absolute;

@@ -17,14 +17,18 @@ export class GameService {
     private computerDiscard: Deck = new Deck;
     private cardsOnTable: Deck = new Deck;
 
+    //war
+    private warCount: number = 0;
+    private warTime:boolean = false;
+    public inWar = new BehaviorSubject<boolean>(this.warTime);
+
     //Round Outcome
     private message: string = '';
     private roundNumber: number = 0;
     private playerShuffleCount: number = 0;
     private computerShuffleCount: number = 0;
-    private warCount: number = 0;
     private isGameOver: boolean = false;
-    private ROUND_OUTCOME_INITIAL_STATE = new RoundOutcome('', 26, 26, new Card(0, ''), new Card(0, ''), 1, 0, 0, 0, false);
+    private ROUND_OUTCOME_INITIAL_STATE = new RoundOutcome('Draw a card.', 26, 26, new Card(0, ''), new Card(0, ''), 1, 0, 0, 0, false);
     public roundOutcome = new BehaviorSubject<RoundOutcome>(this.ROUND_OUTCOME_INITIAL_STATE);
 
 
@@ -48,43 +52,44 @@ export class GameService {
         }
     }
 
+    runSimulation() {
+        this.startGame();
+        while(!this.isGameOver) {
+            this.drawCard();
+        }
+    }
+
     drawCard() {
-        this.roundNumber++;
+        if(!this.warTime){
+            this.roundNumber++;
+        }
         //draw cards and "place them on the table"
         let playerCard = this.playerHand.drawCard();
         let computerCard = this.ComputerHand.drawCard();
         this.cardsOnTable.addMultipleCardsToDeck([playerCard, computerCard]);
         //compare cards and give to the round winner, or start a war
         let result = this.compareCards(playerCard, computerCard);
+        if(this.warTime){
+            this.warCount++;
+            this.warTime = false;
+            this.inWar.next(this.warTime);
+        }
         if (result === 'player') {
             this.playerDiscard.addMultipleCardsToDeck(this.cardsOnTable.returnDeck());
         } else if (result === 'computer') {
             this.computerDiscard.addMultipleCardsToDeck(this.cardsOnTable.returnDeck());
         } else {
-            this.war();
+            if (!this.checkIfGameOver('War, but')) {
+                this.war();
+            }
         }
         //check if game has ended
-        let computer = this.getCardCount('computer');
-        let player = this.getCardCount('player');
-        if (computer === 0 || player === 0) {
-            this.isGameOver = true;
-            this.router.navigate(['/game-over']);
-        }
-
+        let isOver = this.checkIfGameOver('End of round, ');
         //shuffle decks if needed
-        if (!this.isGameOver) {
-            if (this.playerHand.getDeckSize() === 0) {
-                this.playerHand.addMultipleCardsToDeck(this.playerDiscard.returnDeck());
-                this.playerHand.shuffleDeck();
-                this.playerShuffleCount++;
-            }
-            if (this.ComputerHand.getDeckSize() === 0) {
-                this.ComputerHand.addMultipleCardsToDeck(this.computerDiscard.returnDeck());
-                this.ComputerHand.shuffleDeck();
-                this.computerShuffleCount++;
-            }
+        if (!isOver) {
+            this.checkIfNeedForShuffle();
         }
-        this.roundOutcome.next(new RoundOutcome(`You drew ${playerCard.toString()}, the computer drew ${computerCard.toString()}`, this.getCardCount('player'), this.getCardCount('computer'), playerCard, computerCard, this.roundNumber, this.playerShuffleCount, this.computerShuffleCount, this.warCount, this.isGameOver));
+        this.roundOutcome.next(new RoundOutcome(this.message, this.getCardCount('player'), this.getCardCount('computer'), playerCard, computerCard, this.roundNumber, this.playerShuffleCount, this.computerShuffleCount, this.warCount, this.isGameOver));
     }
 
     getCardCount(whose: string): number {
@@ -97,8 +102,10 @@ export class GameService {
 
     compareCards(playerCard: Card, computerCard: Card): string {
         if (playerCard.rank > computerCard.rank) {
+            this.message = `${playerCard.toString()} is greater than ${computerCard.toString()}. ${this.warTime ? 'You won this war!' : 'You get the cards.'}`
             return 'player';
         } else if (computerCard.rank > playerCard.rank) {
+            this.message = `${computerCard.toString()} is greater than ${playerCard.toString()}. ${this.warTime ? 'The computer won this war!' : 'Computer gets the cards.'}`
             return 'computer';
         } else {
             return 'war';
@@ -106,7 +113,71 @@ export class GameService {
     }
 
     war() {
-        this.warCount++;
-        this.cardsOnTable.clearDeck();
+        this.checkIfNeedForShuffle();
+        this.cardsOnTable.addMultipleCardsToDeck(this.playerHand.drawForWar());
+        this.cardsOnTable.addMultipleCardsToDeck(this.ComputerHand.drawForWar());
+        this.checkIfGameOver('Both players put down cards for war');
+        this.checkIfNeedForShuffle();
+        this.warTime = true;
+        this.inWar.next(this.warTime);
+        this.message = 'War! Draw a card.'
+        //let computer = this.ComputerHand.drawCard();
+        //let player = this.playerHand.drawCard();
+        //this.cardsOnTable.addMultipleCardsToDeck([computer,player]);
+        //this.compareCards(player,computer);
+    }
+
+    checkIfGameOver(reason: string): boolean {
+        let computer = this.getCardCount('computer');
+        let player = this.getCardCount('player');
+        if(computer===0){
+            this.message = `${reason} the computer ran out of cards.`
+            this.playerHand.addMultipleCardsToDeck(this.cardsOnTable.returnDeck());
+        } else if(player===0){
+            this.message = `${reason} you ran out of cards.`
+            this.ComputerHand.addMultipleCardsToDeck(this.cardsOnTable.returnDeck());
+        }
+        if (computer === 0 || player === 0) {
+            this.isGameOver = true;
+            this.router.navigate(['/game-over']);
+        }
+        return false;
+    }
+
+    checkIfNeedForShuffle() {
+        if (this.playerHand.getDeckSize() === 0) {
+            this.playerHand.addMultipleCardsToDeck(this.playerDiscard.returnDeck());
+            this.playerHand.shuffleDeck();
+            this.playerShuffleCount++;
+        }
+        if (this.ComputerHand.getDeckSize() === 0) {
+            this.ComputerHand.addMultipleCardsToDeck(this.computerDiscard.returnDeck());
+            this.ComputerHand.shuffleDeck();
+            this.computerShuffleCount++;
+        }
+    }
+    
+    //use for debugging
+    checkTotalCardCount() {
+        let total = this.getCardCount('player') + this.getCardCount('computer') + this.cardsOnTable.getDeckSize();
+            let playerTotal = this.getCardCount('player');
+            let computerTotal = this.getCardCount('computer');
+
+            let allPlayerCards: Deck = new Deck();
+            allPlayerCards.addMultipleCardsToDeck(this.playerHand.getDeck());
+            allPlayerCards.addMultipleCardsToDeck(this.playerDiscard.getDeck());
+            let playerArray = allPlayerCards.getDeck();
+            let playerStr = JSON.stringify(playerArray);
+
+            let allComputerCards: Deck = new Deck();
+            allComputerCards.addMultipleCardsToDeck(this.ComputerHand.getDeck());
+            allComputerCards.addMultipleCardsToDeck(this.computerDiscard.getDeck());
+            let computerArray = allComputerCards.getDeck();
+            let computerStr = JSON.stringify(computerArray);
+            let str = '52 cards in the deck'
+            if(total != 52){
+                str = playerStr + computerStr;
+            }
+            return str;
     }
 }

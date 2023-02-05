@@ -1,3 +1,44 @@
 .red {
     color: red;
 }
+
+#game-stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#game-stats li {
+    list-style-type: none;
+}
+
+#table {
+    background-image: url('../../assets/greenfelt.png');
+    background-color: #11723b;
+    background-size: cover;
+    border-radius: 10px;
+    border: 5px solid black;
+    margin: 10px 0;
+    display: block;
+    height: 300px;
+    position: relative;
+}
+
+#player-stats {
+    text-align: right;
+}
+
+.message {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.war-alert {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

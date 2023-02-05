@@ -14,4 +14,8 @@ export class WelcomeScreenComponent {
     this.gameService.startGame();
     this.router.navigate(['/play-game']);
   }
+  
+  simulation() {
+    this.gameService.runSimulation();
+  }
 }

@@ -1,10 +1,16 @@
-<p>Round: {{roundOutcome.roundNumber}}</p>
-<p>Player: {{roundOutcome.playerCard.toString()}} {{roundOutcome.playHandCount}}</p>
-<p>Computer: {{roundOutcome.computerCard.toString()}} {{roundOutcome.computerHandCount}}</p>
-<p>{{roundOutcome.message}}</p>
-<p>You have shuffled your deck {{roundOutcome.playerShuffleCount}} time{{roundOutcome.playerShuffleCount===1 ? '' : 's'}}</p>
-<p>The computer has shuffled it's deck {{roundOutcome.computerShuffleCount}} time{{roundOutcome.computerShuffleCount===1 ? '' : 's'}}</p>
-<p>{{roundOutcome.warCount}} war{{roundOutcome.warCount===1 ? ' has' : 's have'}} occurred</p>
+<ul id="game-stats">
+    <li><h2>Round: {{roundOutcome.roundNumber}}</h2></li>
+    <li><h2>Wars: {{roundOutcome.warCount}}</h2></li>
+</ul>
+
+<p></p>
+<p id="copmuter-stats">The computer has {{roundOutcome.computerHandCount}} card{{roundOutcome.computerHandCount===1 ? '':'s'}}. It shuffled it's deck {{roundOutcome.computerShuffleCount}} time{{roundOutcome.computerShuffleCount===1 ? '' : 's'}}.</p>
+<section id="table">
+    <p>Player: {{roundOutcome.playerCard.toString()}} </p>
+    <p>Computer: {{roundOutcome.computerCard.toString()}} </p>
+</section>
+<p id="player-stats">You have {{roundOutcome.playHandCount}} card{{roundOutcome.playHandCount===1 ? '':'s'}}. You have shuffled your deck {{roundOutcome.playerShuffleCount}} time{{roundOutcome.playerShuffleCount===1 ? '' : 's'}}.</p>
+<p [ngClass]="inWar ? 'message war-alert' : 'message'"><i class="fa-solid fa-triangle-exclamation" *ngIf="inWar"></i> {{roundOutcome.message}} <i class="fa-solid fa-triangle-exclamation" *ngIf="inWar"></i></p>
 
 <section class="btn-group">
     <button (click)="draw()" class="btn btn-green size-20 half">Draw Card</button>

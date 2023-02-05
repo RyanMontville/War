@@ -51,9 +51,28 @@ export class Deck {
         this.deck = [];
     }
 
-    returnDeck() {
+    returnDeck(): Card[] {
         let deckToReturn = this.deck;
         this.clearDeck();
         return deckToReturn;
+    }
+
+    getDeck(): Card[] {
+        return this.deck;
+    }
+
+    drawForWar(): Card[] {
+        let cards: Card[] = [];
+        if(this.deck.length>=3){
+            cards.push(this.drawCard());
+            cards.push(this.drawCard());
+            cards.push(this.drawCard());
+        } else if(this.deck.length===2){
+            cards.push(this.drawCard());
+            cards.push(this.drawCard());
+        } else {
+            cards.push(this.drawCard());
+        }
+        return cards;
     }
 }

@@ -16,12 +16,16 @@ export class GameOverComponent implements OnInit {
   ngOnInit() {
     this.gameService.roundOutcome.subscribe((outcome: RoundOutcome)=>{
       this.roundOutcome = outcome;
-    })
+    });
   }
 
   start() {
     this.gameService.startGame();
     this.router.navigate(['/play-game']);
+  }
+
+  simulation() {
+    this.gameService.runSimulation();
   }
 
 }
