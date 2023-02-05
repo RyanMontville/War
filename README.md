@@ -60,7 +60,6 @@ The program is a mostly fully functional game of war.
 * I want to have a live demo of the game, so I rebuilt the app to run entirely on the front end. There are now 2 versions of the game within this repo.
     * The first app runs on React.js and uses the API and Java backend.
     * The second app runs on Angular and everything is done within the Angular app using Typescript for the game logic. It does not use the API or Java backend.
-* 
 
 [Back to Top](#top)
 
