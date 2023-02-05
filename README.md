@@ -3,7 +3,11 @@
 [Version Notes](#notes) | [Screenshots](#screenshots)
 
 # War
-One of the first side projects I started working on during the Tech Elevator bootcamp was a CLI of the card game War. The application evolved as we were taught the different parts of full stack development. I knew I wanted to make a web interface for the game, so I created an API. After the bootcamp concluded, I wanted to learn React.js, so I used React to build the front end of the app. <a href="https://ryanmontville.github.io/War/">Click here</a> to load the app.
+One of the first side projects I started working on during the Tech Elevator bootcamp was a CLI of the card game War. The application evolved as we were taught the different parts of full stack development. I knew I wanted to make a web interface for the game, so I created an API. After the bootcamp concluded, I wanted to learn React.js, so I used React to build the front end of the app. 
+
+I have created a second version of the app in Angular that doesn't rely on the API or Java, so that I could deploy it to GitHub pages. The Angular version of the app handles all of the game logic in Typescript.
+
+The game is now live on GitHub pages. <a href="https://ryanmontville.github.io/War/">Click here</a> to load the app.
 
 <a id='notes'></a>
 
