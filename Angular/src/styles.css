@@ -60,6 +60,10 @@ body {
     flex-basis: 50%;
 }
 
+.full {
+    flex-basis: 100%;
+}
+
 main h1,
 main h2,
 main h3,

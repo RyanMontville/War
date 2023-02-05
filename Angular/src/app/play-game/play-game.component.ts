@@ -11,6 +11,8 @@ import { RoundOutcome } from '../round-outcome.model';
 export class PlayGameComponent implements OnInit {
   roundOutcome: RoundOutcome = new RoundOutcome('',0,0,new Card(0,''),new Card(0,''),0,0,0,0,false);
   inWar: boolean = false;
+  cardsDrawnForWar: number = 0;
+  roundOfWar = 0;
 
   constructor(private gameService: GameService) {}
 
@@ -25,5 +27,22 @@ export class PlayGameComponent implements OnInit {
 
   draw() {
     this.gameService.drawCard();
+    this.cardsDrawnForWar = 0;
+  }
+
+  checkSuit(suit: string):boolean {
+    if(suit==='♥' || suit==='♦') {
+      return true;
+    }
+    return false;
+  }
+
+  drawForWar() {
+    if(this.cardsDrawnForWar===3){
+      this.gameService.drawCard();
+      this.cardsDrawnForWar++;
+    } else {
+      this.cardsDrawnForWar++;
+    }
   }
 }

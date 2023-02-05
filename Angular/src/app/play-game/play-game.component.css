@@ -1,17 +1,3 @@
-.red {
-    color: red;
-}
-
-#game-stats {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-#game-stats li {
-    list-style-type: none;
-}
-
 #table {
     background-image: url('../../assets/greenfelt.png');
     background-color: #11723b;
@@ -22,6 +8,120 @@
     display: block;
     height: 300px;
     position: relative;
+}
+
+/**************************************** Rules for all cards **************************************************/
+
+#computer-card,
+#player-card {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    height: 150px;
+    width: 100px;
+    z-index: 5;
+}
+
+.top {
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    font-size: 40px;
+}
+
+.suit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+}
+
+.red {
+    color: red;
+}
+
+.bottom {
+    position: absolute;
+    bottom: -10px;
+    right: 5px;
+    font-size: 40px;
+    transform: rotate(180deg);
+}
+
+.war-card {
+    background: rgb(9, 9, 121);
+    background: radial-gradient(circle, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    border: 3px solid white;
+    border-radius: 10px;
+    height: 145px;
+    width: 95px;
+}
+
+/****************************************** Computer Cards *****************************************************/
+#computer-card {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transform: rotate(180deg);
+}
+
+#computer-war-1 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+}
+#computer-war-2 {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2;
+}
+#computer-war-3 {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+}
+
+/******************************************** Player Cards *****************************************************/
+#player-card {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+#player-war-1 {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 4;
+}
+
+#player-war-2 {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 3;
+}
+
+#player-war-3 {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+/***************************************** Stats and Alerts ****************************************************/
+#game-stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#game-stats li {
+    list-style-type: none;
 }
 
 #player-stats {
@@ -41,4 +141,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+@media (max-width: 870px) {
+    #table {
+        height: 200px;
+    }
 }

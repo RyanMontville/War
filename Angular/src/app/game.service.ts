@@ -27,8 +27,8 @@ export class GameService {
     private roundNumber: number = 0;
     private playerShuffleCount: number = 0;
     private computerShuffleCount: number = 0;
-    private isGameOver: boolean = false;
-    private ROUND_OUTCOME_INITIAL_STATE = new RoundOutcome('Draw a card.', 26, 26, new Card(0, ''), new Card(0, ''), 1, 0, 0, 0, false);
+    private isGameOver: boolean = true;
+    private ROUND_OUTCOME_INITIAL_STATE = new RoundOutcome('Draw a card.', 26, 26, new Card(0, ''), new Card(0, ''), 1, 0, 0, 0, true);
     public roundOutcome = new BehaviorSubject<RoundOutcome>(this.ROUND_OUTCOME_INITIAL_STATE);
 
 
@@ -44,6 +44,8 @@ export class GameService {
         this.computerShuffleCount = 0;
         this.warCount = 0;
         this.isGameOver = false;
+        this.warTime = false;
+        this.inWar.next(this.warTime);
         this.roundOutcome.next(this.ROUND_OUTCOME_INITIAL_STATE);
         this.deck.generateDeck();
         while (this.deck.getDeckSize() > 0) {
@@ -60,6 +62,9 @@ export class GameService {
     }
 
     drawCard() {
+        if(this.isGameOver) {
+            this.startGame();
+        }
         if(!this.warTime){
             this.roundNumber++;
         }
@@ -71,6 +76,7 @@ export class GameService {
         let result = this.compareCards(playerCard, computerCard);
         if(this.warTime){
             this.warCount++;
+            this.war();
             this.warTime = false;
             this.inWar.next(this.warTime);
         }
@@ -80,7 +86,9 @@ export class GameService {
             this.computerDiscard.addMultipleCardsToDeck(this.cardsOnTable.returnDeck());
         } else {
             if (!this.checkIfGameOver('War, but')) {
-                this.war();
+                this.warTime = true;
+                this.inWar.next(this.warTime);
+                this.message = 'War! Draw a card.';
             }
         }
         //check if game has ended
@@ -118,9 +126,6 @@ export class GameService {
         this.cardsOnTable.addMultipleCardsToDeck(this.ComputerHand.drawForWar());
         this.checkIfGameOver('Both players put down cards for war');
         this.checkIfNeedForShuffle();
-        this.warTime = true;
-        this.inWar.next(this.warTime);
-        this.message = 'War! Draw a card.'
         //let computer = this.ComputerHand.drawCard();
         //let player = this.playerHand.drawCard();
         //this.cardsOnTable.addMultipleCardsToDeck([computer,player]);
