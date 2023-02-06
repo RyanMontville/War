@@ -38,6 +38,9 @@ export class PlayGameComponent implements OnInit {
   }
 
   drawForWar() {
+    if(this.cardsDrawnForWar===4){
+      this.cardsDrawnForWar = 0;
+    }
     if(this.cardsDrawnForWar===3){
       this.gameService.drawCard();
       this.cardsDrawnForWar++;
