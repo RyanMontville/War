@@ -185,4 +185,14 @@ export class GameService {
             }
             return str;
     }
+
+    getEstimatedTime(roundNum: number,warNum: number,ComputerNum: number,PlayerNum: number): string {
+        let rounds: number = roundNum * 5;
+        let wars = warNum * 10;
+        let playerShuffles = PlayerNum * 60;
+        let computerShuffles = ComputerNum * 60;
+        let totalSeconds = rounds + wars + playerShuffles + computerShuffles;
+        let totalMinutes = Math.round(totalSeconds/60);
+        return `If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for ${totalMinutes} minutes.`;
+    }
 }
