@@ -7,7 +7,7 @@ One of the first side projects I started working on during the Tech Elevator boo
 
 I have created a second version of the app in Angular that doesn't rely on the API or Java, so that I could deploy it to GitHub pages. The Angular version of the app handles all of the game logic in Typescript.
 
-The game is now live on GitHub pages. <a href="https://ryanmontville.github.io/War/">Click here</a> to load the app.
+The game is now live on GitHub pages. [Click here](https://ryanmontville.github.io/War/) to load the app.
 
 <a id='notes'></a>
 
