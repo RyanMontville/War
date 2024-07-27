@@ -70,17 +70,6 @@ The program is a mostly fully functional game of war.
 <a id='screenshots'></a>
 
 ## Screenshots
-
-#### React.js version
-
-<div>
-<img src="https://raw.githubusercontent.com/RyanMontville/War/main/React/Screenshots/homepage.png" alt="homepage" title="Homepage" style="width: 20%; display: inline-block;"></img>
-<img src="https://raw.githubusercontent.com/RyanMontville/War/main/screenshots/game.png" alt="game" title="Playing the game" style="width: 20%; display: inline-block;"></img>
-<img src="https://raw.githubusercontent.com/RyanMontville/War/main/screenshots/simulation.png" alt="simulation" title="Running the game as a simulation" style="width: 20%; display: inline-block;"></img>
-<img src="https://github.com/RyanMontville/War/blob/main/React/Screenshots/game-over.png" alt="gave-over" title="Game Over Screen" style="width: 20%; display: inline-block;"></img>
-</div>
-
-#### Angular version
 <div>
     <img src="https://raw.githubusercontent.com/RyanMontville/War/main/screenshots/homepage.png" alt="homepage" title="Homepage" style="width: 20%; display: inline-block;"></img>
 <img src="https://raw.githubusercontent.com/RyanMontville/War/main/Angular/Screenshots/game-play.png" alt="game" title="Playing the game" style="width: 20%; display: inline-block;"></img>
