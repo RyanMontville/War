@@ -1,0 +1,70 @@
+<app-header />
+<main>
+    <ul id="game-stats">
+        <li>
+            <h2>Round: {{roundOutcome.roundNumber}}</h2>
+        </li>
+        <li>
+            <h2>Wars: {{roundOutcome.warCount}}</h2>
+        </li>
+    </ul>
+
+    <p></p>
+    <p id="copmuter-stats">The computer has {{roundOutcome.computerHandCount}} card{{roundOutcome.computerHandCount===1
+        ? '':'s'}}. It shuffled it's deck {{roundOutcome.computerShuffleCount}}
+        time{{roundOutcome.computerShuffleCount===1 ? '' : 's'}}.</p>
+    <section id="table">
+        @if (roundOutcome.computerCard.rank!=0) {
+        <div>
+            @if (cardsDrawnForWar===0 || cardsDrawnForWar===4) {
+            <div id="computer-card" [ngClass]="checkSuit(roundOutcome.computerCard.suit) ? 'red': 'black'">
+                <span class="top">{{roundOutcome.computerCard.getRank()}}</span>
+                <span class="suit">{{roundOutcome.computerCard.suit}}</span>
+                <span class="bottom">{{roundOutcome.computerCard.getRank()}}</span>
+            </div>
+            }
+            @if (cardsDrawnForWar > 2) {
+                <div class="war-card" id="computer-war-1"></div>
+            }
+            @if (cardsDrawnForWar > 1) {
+                <div class="war-card" id="computer-war-2"></div>
+            }
+            @if (cardsDrawnForWar > 0) {
+                <div class="war-card" id="computer-war-3"></div>
+            }
+            @if (cardsDrawnForWar===0 || cardsDrawnForWar===4) {
+            <div id="player-card" [ngClass]="checkSuit(roundOutcome.playerCard.suit) ? 'red': 'black'">
+                <span class="top">{{roundOutcome.playerCard.getRank()}}</span>
+                <span class="suit">{{roundOutcome.playerCard.suit}}</span>
+                <span class="bottom">{{roundOutcome.playerCard.getRank()}}</span>
+            </div>
+            }
+            @if (cardsDrawnForWar > 2) {
+                <div class="war-card" id="player-war-1"></div>
+            }
+            @if (cardsDrawnForWar > 1) {
+                <div class="war-card" id="player-war-2"></div>
+            }
+            @if (cardsDrawnForWar > 0) {
+                <div class="war-card" id="player-war-3"></div>
+            }
+        </div>
+        }
+    </section>
+    <p id="player-stats">You have {{roundOutcome.playHandCount}} card{{roundOutcome.playHandCount===1 ? '':'s'}}. You
+        have shuffled your deck {{roundOutcome.playerShuffleCount}} time{{roundOutcome.playerShuffleCount===1 ? '' :
+        's'}}.</p>
+    <p [ngClass]="inWar ? 'message war-alert' : 'message'">@if (inWar) {<i class="fa-solid fa-triangle-exclamation"></i>}
+        {{roundOutcome.message}} @if (inWar) {<i class="fa-solid fa-triangle-exclamation"></i>}</p>
+    @if (!inWar) {
+    <section class="btn-group">
+        <button (click)="draw()" class="btn btn-green size-20 half">Draw Card</button>
+        <button routerLink="/game-over" class="btn btn-red size-20 half">Give Up</button>
+    </section>
+    }
+    @if (inWar) {
+    <section class="btn-group">
+        <button class="btn size-20 btn-red full" (click)="drawForWar()">Draw Cards for War</button>
+    </section>
+    }
+</main>

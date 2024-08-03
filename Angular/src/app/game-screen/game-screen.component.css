@@ -1,5 +1,5 @@
 #table {
-    background-image: url('../../assets/greenfelt.png');
+    background-image: url('https://raw.githubusercontent.com/RyanMontville/War/main/greenfelt.jpg');
     background-color: #11723b;
     background-size: cover;
     border-radius: 10px;
@@ -39,6 +39,10 @@
 
 .red {
     color: red;
+}
+
+.black {
+    color: black;
 }
 
 .bottom {

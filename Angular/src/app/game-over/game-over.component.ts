@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { HeaderComponent } from "../header/header.component";
 import { Router } from '@angular/router';
-import { Card } from '../deck/card.model';
+import { RoundOutcome, Card } from '../deck.model';
 import { GameService } from '../game.service';
-import { RoundOutcome } from '../round-outcome.model';
 
 @Component({
   selector: 'app-game-over',
+  standalone: true,
+  imports: [HeaderComponent],
   templateUrl: './game-over.component.html',
-  styleUrls: ['./game-over.component.css']
+  styleUrl: './game-over.component.css'
 })
-export class GameOverComponent implements OnInit {
+export class GameOverComponent {
   roundOutcome = new RoundOutcome('',0,0,new Card(0,''),new Card(0,''),0,0,0,0,false);
   estimatedTime: string = '';
   constructor(private gameService: GameService, private router:Router) {}
@@ -25,12 +27,11 @@ export class GameOverComponent implements OnInit {
 
   start() {
     this.gameService.startGame();
-    this.router.navigate(['/play-game']);
+    this.router.navigate(['/game']);
   }
 
   simulation() {
     this.gameService.runSimulation();
   }
-//calculate estimated playing time
-//If it takes 5 seconds per round, 10 seconds for a war, and a minute for a thorough shuffle, you would have played for
+
 }

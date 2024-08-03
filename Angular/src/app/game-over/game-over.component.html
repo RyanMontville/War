@@ -1,18 +1,29 @@
-<h1>GAME OVER</h1>
-<div *ngIf="roundOutcome.playHandCount===0">
-  <p>{{roundOutcome.message}}</p>
-  <p>You lost after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
-</div>
-<div *ngIf="roundOutcome.computerHandCount===0">
-  <p>{{roundOutcome.message}}</p>
-  <p>You won after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
-</div>
-<p *ngIf="roundOutcome.computerHandCount!=0 && roundOutcome.playHandCount!=0">You gave up after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
-<p>You shuffled your deck {{roundOutcome.playerShuffleCount}} time{{roundOutcome.playerShuffleCount===1 ? '' : 's'}}</p>
-<p>The computer shuffled it's deck {{roundOutcome.computerShuffleCount}} time{{roundOutcome.computerShuffleCount===1 ? '' : 's'}}</p>
-<p>{{roundOutcome.warCount}} war{{roundOutcome.warCount===1 ? '' : 's'}} occurred</p>
-<p>{{estimatedTime}}</p>
-<section class="btn-group">
-  <button (click)="start()" class="btn btn-green size-20 half">Play New Game</button>
-  <button  class="btn btn-blue size-20 half" (click)="simulation()">Run Simulation</button>
-</section>
+<app-header />
+<main>
+    <h1>GAME OVER</h1>
+    @if (roundOutcome.playHandCount === 0) {
+    <div>
+        <p>{{roundOutcome.message}}</p>
+        <p>You lost after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
+    </div>
+    }
+    @if (roundOutcome.computerHandCount === 0) {
+    <div>
+        <p>{{roundOutcome.message}}</p>
+        <p>You won after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
+    </div>
+    }
+    @if (roundOutcome.computerHandCount != 0 && roundOutcome.playHandCount != 0) {
+    <p>You gave up after {{roundOutcome.roundNumber}} round{{roundOutcome.roundNumber===1 ? '' : 's'}}.</p>
+    }
+    <p>You shuffled your deck {{roundOutcome.playerShuffleCount}} time{{roundOutcome.playerShuffleCount===1 ? '' : 's'}}
+    </p>
+    <p>The computer shuffled it's deck {{roundOutcome.computerShuffleCount}} time{{roundOutcome.computerShuffleCount===1
+        ? '' : 's'}}</p>
+    <p>{{roundOutcome.warCount}} war{{roundOutcome.warCount===1 ? '' : 's'}} occurred</p>
+    <p>{{estimatedTime}}</p>
+    <section class="btn-group">
+        <button (click)="start()" class="btn btn-green size-20 half">Play New Game</button>
+        <button class="btn btn-blue size-20 half" (click)="simulation()">Run Simulation</button>
+    </section>
+</main>

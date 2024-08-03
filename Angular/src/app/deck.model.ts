@@ -1,5 +1,3 @@
-import { Card } from "./card.model";
-
 export class Deck {
     private deck: Card[];
 
@@ -75,4 +73,40 @@ export class Deck {
         }
         return cards;
     }
+}
+
+export class Card {
+    public rank: number;
+    public suit: string;
+
+    constructor( rank: number,suit: string) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
+    getRank(): string {
+        if(this.rank===14){
+            return 'A';
+        } else if(this.rank===11) {
+            return 'J';
+        } else if(this.rank===12) {
+            return 'Q';
+        } else if(this.rank===13) {
+            return 'K';
+        } else {
+            return this.rank.toString();
+        }
+    }
+
+    toString(): string {
+        return this.getRank() + this.suit;
+    }
+}
+
+export class RoundOutcome {
+
+    constructor(public message: string, public playHandCount: number, public computerHandCount: number, 
+                public playerCard: Card, public computerCard: Card, public roundNumber: number, 
+                public playerShuffleCount: number, public computerShuffleCount: number,
+                public warCount: number, public isGameOver: boolean) { }
 }

@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { Deck } from "./deck/deck.model";
-import { Card } from "./deck/card.model";
-import { RoundOutcome } from "./round-outcome.model";
+import { Deck, Card, RoundOutcome } from "./deck.model";
+
 import { Router } from "@angular/router";
 
 @Injectable()
