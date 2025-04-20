@@ -72,7 +72,7 @@ The program is a mostly fully functional game of war.
 ## Screenshots
 <div>
     <img src="https://raw.githubusercontent.com/RyanMontville/War/main/screenshots/homepage.png" alt="homepage" title="Homepage" style="width: 32%; display: inline-block;"></img>
-<img src="https://raw.githubusercontent.com/RyanMontville/War/main/Angular/Screenshots/game.png" alt="game" title="Playing the game" style="width: 32%; display: inline-block;"></img>
+<img src="https://raw.githubusercontent.com/RyanMontville/War/refs/heads/main/screenshots/game.png" alt="game" title="Playing the game" style="width: 32%; display: inline-block;"></img>
 <img src="https://raw.githubusercontent.com/RyanMontville/War/main/screenshots/game-over.png" alt="gave-over" title="Game Over Screen" style="width: 32%; display: inline-block;"></img>
 </div>
 
